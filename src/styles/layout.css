@@ -1,0 +1,350 @@
+/* ==========================================================================
+   ESTRUTURA DE LAYOUT (WIREFRAME FUNCIONAL)
+   ==========================================================================
+   Mantém a casca estrutural (sidebar + topbar + conteúdo) posicionada e
+   responsiva, mas sem a estilização visual final do Figma.
+   
+   🎯 TAREFA DOS ESTUDANTES:
+   - Estilizar a Sidebar com as cores do Figma (ex: tema escuro, bordas, logo).
+   - Estilizar os links de navegação (.nav-link) para estados normal, hover e ativo.
+   - Refinar a Topbar e o card do usuário na barra lateral.
+   ========================================================================== */
+
+.app-shell {
+  min-height: 100vh;
+}
+
+/* --------------------------------------------------------------------------
+   SIDEBAR (Menu Lateral)
+   TODO (Estudantes): Estilizar cores de fundo, bordas e espaçamentos do Figma
+   -------------------------------------------------------------------------- */
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 30;
+  width: var(--largura-sidebar);
+  display: flex;
+  flex-direction: column;
+  background: var(--cor-sidebar);
+  border-right: 1px solid var(--cor-borda);
+  color: var(--cor-texto);
+}
+
+/* Marca / Logo
+   TODO (Estudantes): Implementar o símbolo da marca e tipografia do Figma */
+.marca {
+  height: var(--altura-topbar);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.marca-simbolo {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  background: var(--cor-borda);
+  border-radius: var(--raio-sm);
+}
+
+.marca b {
+  display: block;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.marca span {
+  display: block;
+  font-size: 12px;
+  color: var(--cor-cinza-escuro);
+}
+
+.fechar-menu {
+  display: none;
+  margin-left: auto;
+  min-width: var(--alvo-minimo);
+  min-height: var(--alvo-minimo);
+  background: none;
+  border: 0;
+  font-size: 24px;
+}
+
+/* Navegação da Sidebar
+   TODO (Estudantes): Estilizar itens do menu, ícones e indicador de página ativa */
+.sidebar-nav {
+  flex: 1;
+  padding: 12px 8px;
+  overflow-y: auto;
+}
+
+.nav-grupo {
+  margin-bottom: 16px;
+}
+
+.nav-grupo-titulo {
+  margin: 0 8px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--cor-cinza);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 10px;
+  border-radius: var(--raio-sm);
+  color: var(--cor-texto);
+  text-decoration: none;
+  font-size: 14px;
+  transition: background var(--transicao);
+}
+
+.nav-link:hover {
+  background: var(--cor-hover);
+}
+
+/* Estado de rota ativa no menu
+   TODO (Estudantes): Aplicar estilo do Figma (cor de fundo, pill lateral, contraste) */
+.nav-link[aria-current="page"] {
+  font-weight: 600;
+  background: var(--cor-borda);
+}
+
+/* Rodapé da Sidebar / Usuário
+   TODO (Estudantes): Estilizar o card do usuário logado */
+.sidebar-rodape {
+  padding: 12px;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--cor-borda);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.usuario b, .usuario span {
+  display: block;
+  font-size: 13px;
+}
+
+.usuario span {
+  color: var(--cor-cinza-escuro);
+}
+
+.sidebar-fundo {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   ÁREA DE CONTEÚDO & TOPBAR
+   -------------------------------------------------------------------------- */
+.conteudo {
+  min-height: 100vh;
+  margin-left: var(--largura-sidebar);
+}
+
+/* Topbar
+   TODO (Estudantes): Ajustar altura, cores, breadcrumbs e campo de busca conforme Figma */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: var(--altura-topbar);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 24px;
+  background: var(--cor-superficie);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.topbar-esquerda {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn.botao-menu {
+  display: none;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--texto-pequeno);
+}
+
+.breadcrumb a {
+  color: var(--cor-cinza-escuro);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb .separador {
+  color: var(--cor-suave);
+}
+
+.breadcrumb [aria-current="page"] {
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.topbar-acoes {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.busca-global {
+  width: 220px;
+}
+
+.status-sync {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--texto-pequeno);
+  color: var(--cor-cinza-escuro);
+}
+
+.status-sync i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cor-cinza);
+}
+
+/* Popovers e notificações */
+.popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 40;
+  width: 280px;
+  padding: 12px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+  box-shadow: var(--sombra-flutuante);
+}
+
+.popover-titulo {
+  display: block;
+  font-size: var(--texto-pequeno);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.popover-item {
+  display: block;
+  padding: 8px;
+  border-radius: var(--raio-sm);
+  background: var(--cor-hover);
+  text-decoration: none;
+  color: var(--cor-texto);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.popover-item b, .popover-item small {
+  display: block;
+}
+
+/* Container de Página */
+.pagina {
+  width: min(1380px, 100%);
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Acessibilidade */
+.pular-conteudo {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 100;
+  padding: 8px 12px;
+  background: var(--cor-preto);
+  color: #fff;
+  font-weight: 600;
+}
+
+.pular-conteudo:focus {
+  top: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVIDADE (Layout Móvel)
+   -------------------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+  }
+  .sidebar.aberta {
+    transform: translateX(0);
+  }
+  .fechar-menu {
+    display: block;
+  }
+  .sidebar-fundo {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 29;
+    border: 0;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .conteudo {
+    margin-left: 0;
+  }
+  .btn.botao-menu {
+    display: inline-flex;
+  }
+  .topbar {
+    padding: 8px 16px;
+  }
+  .busca-global {
+    display: none;
+  }
+  .pagina {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 680px) {
+  .status-sync {
+    display: none;
+  }
+  .breadcrumb .nivel-intermediario {
+    display: none;
+  }
+}

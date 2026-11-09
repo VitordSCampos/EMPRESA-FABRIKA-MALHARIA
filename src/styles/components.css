@@ -1,0 +1,568 @@
+/* ==========================================================================
+   COMPONENTES COMPARTILHADOS (ESQUELETO WIREFRAME)
+   ==========================================================================
+   Estes componentes possuem a estrutura HTML e classes prontas, mas com
+   estilização básica/neutra (wireframe funcional).
+   
+   🎯 TAREFA DOS ESTUDANTES:
+   Abra a página "Guia de componentes" (#/dev/componentes) e consulte o Figma
+   para aplicar as cores, sombras, tipografia, bordas e microinterações
+   específicas de cada componente abaixo.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CARTÃO (Card)
+   TODO (Estudantes): Ajustar sombra, borda, border-radius e padding do Figma
+   -------------------------------------------------------------------------- */
+.card {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda-cartao);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-cartao);
+}
+
+.card-corpo {
+  padding: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   CABEÇALHO DE PÁGINA (PageHeader)
+   TODO (Estudantes): Estilizar tipografia do título e eyebrow conforme Figma
+   -------------------------------------------------------------------------- */
+.pagina-cabecalho {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.pagina-eyebrow {
+  display: block;
+  margin-bottom: 6px;
+  font-size: var(--texto-pequeno);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--cor-cinza);
+}
+
+.pagina-cabecalho h1 {
+  font-size: 26px;
+  line-height: 1.2;
+}
+
+.pagina-cabecalho p {
+  margin-top: 6px;
+  color: var(--cor-cinza-escuro);
+}
+
+/* --------------------------------------------------------------------------
+   BOTÕES (Botao)
+   TODO (Estudantes):
+   - Ajustar altura, padding e raio de borda.
+   - Definir cores de fundo, texto e borda para cada variante (:hover, :active).
+   - Estilizar estados desabilitados ([disabled]).
+   -------------------------------------------------------------------------- */
+.btn {
+  min-height: var(--alvo-minimo);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  border-radius: var(--raio-md);
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background var(--transicao), border-color var(--transicao);
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Variante Primária */
+.btn--primario {
+  background: var(--cor-preto);
+  border-color: var(--cor-preto);
+  color: #ffffff;
+}
+
+.btn--primario:hover {
+  opacity: 0.9;
+}
+
+/* Variante Secundária */
+.btn--secundario {
+  background: var(--cor-superficie);
+  border-color: var(--cor-borda);
+  color: var(--cor-texto);
+}
+
+.btn--secundario:hover {
+  background: var(--cor-hover);
+}
+
+/* Variante Perigo */
+.btn--perigo {
+  background: var(--cor-superficie);
+  border-color: var(--status-perigo-texto);
+  color: var(--status-perigo-texto);
+}
+
+.btn--perigo:hover {
+  background: var(--status-perigo-fundo);
+}
+
+/* Variante Ícone */
+.btn--icone {
+  width: var(--alvo-minimo);
+  padding: 0;
+  color: var(--cor-cinza-escuro);
+}
+
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   CAMPOS DE FORMULÁRIO (Campo)
+   -------------------------------------------------------------------------- */
+.campo {
+  display: block;
+}
+
+.campo-rotulo {
+  display: block;
+  margin-bottom: 6px;
+  font-size: var(--texto-pequeno);
+  font-weight: 600;
+}
+
+.campo-obrigatorio {
+  color: var(--status-perigo-texto);
+}
+
+.campo-erro {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--texto-pequeno);
+  color: var(--status-perigo-texto);
+}
+
+.grade-campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   BADGE DE STATUS (StatusBadge)
+   TODO (Estudantes): Estilizar cores de fundo, texto e ícones/pontos conforme o Figma
+   -------------------------------------------------------------------------- */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: var(--raio-sm);
+  border: 1px solid var(--cor-borda);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status--neutro {
+  background: var(--status-neutro-fundo);
+  color: var(--status-neutro-texto);
+  border-color: transparent;
+}
+
+.status--sucesso {
+  background: var(--status-sucesso-fundo);
+  color: var(--status-sucesso-texto);
+  border-color: transparent;
+}
+
+.status--alerta {
+  background: var(--status-alerta-fundo);
+  color: var(--status-alerta-texto);
+  border-color: transparent;
+}
+
+.status--perigo {
+  background: var(--status-perigo-fundo);
+  color: var(--status-perigo-texto);
+  border-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   TABELA DE DADOS (DataTable)
+   TODO (Estudantes): Refinar tipografia do header, zebra-striping e paginação
+   -------------------------------------------------------------------------- */
+.tabela-card {
+  overflow: hidden;
+}
+
+.tabela-ferramentas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--cor-linha);
+}
+
+.tabela-busca {
+  width: min(320px, 100%);
+}
+
+.tabela-filtro {
+  width: 160px;
+}
+
+.tabela-acoes {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.tabela-rolagem {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cor-cinza-escuro);
+  background: var(--cor-hover);
+  border-bottom: 1px solid var(--cor-linha);
+}
+
+th button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: inherit;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--cor-linha);
+  color: var(--cor-texto);
+  font-size: 14px;
+}
+
+td:first-child {
+  font-weight: 600;
+}
+
+tbody tr.clicavel {
+  cursor: pointer;
+}
+
+tbody tr.clicavel:hover {
+  background: var(--cor-hover);
+}
+
+.tabela-rodape {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  font-size: var(--texto-pequeno);
+  color: var(--cor-cinza-escuro);
+}
+
+.paginacao {
+  display: flex;
+  gap: 4px;
+}
+
+.paginacao button {
+  width: 32px;
+  height: 32px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-sm);
+}
+
+.paginacao button[aria-current="page"] {
+  background: var(--cor-preto);
+  color: #fff;
+  border-color: var(--cor-preto);
+}
+
+.paginacao button[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   ESTADO VAZIO (EstadoVazio)
+   -------------------------------------------------------------------------- */
+.estado-vazio {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--cor-cinza-escuro);
+}
+
+.estado-vazio svg {
+  width: 36px;
+  height: 36px;
+  color: var(--cor-suave);
+}
+
+.estado-vazio h2 {
+  font-size: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   MODAL & DRAWER (Janelas Flutuantes)
+   TODO (Estudantes): Adicionar transições/animações e refinamento visual
+   -------------------------------------------------------------------------- */
+.camada {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+}
+
+.camada-fundo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.modal, .drawer {
+  position: absolute;
+  z-index: 71;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  overflow-y: auto;
+}
+
+.modal {
+  top: 50%;
+  left: 50%;
+  width: min(600px, 92vw);
+  max-height: 90vh;
+  padding: 24px;
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-flutuante);
+  transform: translate(-50%, -50%);
+}
+
+.drawer {
+  top: 0;
+  right: 0;
+  width: min(460px, 94vw);
+  height: 100%;
+  padding: 24px;
+  box-shadow: var(--sombra-flutuante);
+}
+
+.camada-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.camada-cabecalho span {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--cor-cinza);
+}
+
+.camada-cabecalho h2 {
+  margin-top: 4px;
+  font-size: 20px;
+}
+
+.camada-rodape {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--cor-borda);
+}
+
+/* --------------------------------------------------------------------------
+   TOAST (Notificações)
+   -------------------------------------------------------------------------- */
+.toasts {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 80;
+  display: grid;
+  gap: 8px;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 280px;
+  padding: 12px;
+  color: #fff;
+  background: var(--cor-preto);
+  border-radius: var(--raio-md);
+  box-shadow: var(--sombra-flutuante);
+}
+
+.toast-icone {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  display: grid;
+  place-items: center;
+  color: var(--cor-preto);
+  background: #fff;
+  border-radius: 50%;
+}
+
+.toast b, .toast small {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   ABAS (Tabs)
+   TODO (Estudantes): Estilizar a aba ativa e espaçamentos conforme Figma
+   -------------------------------------------------------------------------- */
+.abas {
+  display: flex;
+  gap: 4px;
+  padding: 0 12px;
+  overflow-x: auto;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+  margin-bottom: 16px;
+}
+
+.aba {
+  flex: 0 0 auto;
+  min-height: 42px;
+  padding: 0 12px;
+  color: var(--cor-cinza-escuro);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  font-weight: 500;
+}
+
+.aba[aria-selected="true"] {
+  color: var(--cor-texto);
+  font-weight: 600;
+  border-bottom-color: var(--cor-texto);
+}
+
+/* --------------------------------------------------------------------------
+   STEPPER (Fluxos em etapas)
+   -------------------------------------------------------------------------- */
+.stepper {
+  display: flex;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.stepper li {
+  flex: 1;
+  padding: 8px 4px;
+  text-align: center;
+  font-size: var(--texto-pequeno);
+  color: var(--cor-cinza);
+  border-bottom: 2px solid transparent;
+}
+
+.stepper li[aria-current="step"] {
+  color: var(--cor-texto);
+  font-weight: 600;
+  border-bottom-color: var(--cor-texto);
+}
+
+.stepper li.concluida {
+  color: var(--cor-texto);
+}
+
+/* --------------------------------------------------------------------------
+   PÁGINA EM CONSTRUÇÃO
+   -------------------------------------------------------------------------- */
+.em-construcao {
+  display: grid;
+  gap: 16px;
+}
+
+.em-construcao ul {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+}
+
+.etiqueta {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: var(--raio-sm);
+  background: var(--status-neutro-fundo);
+  font-size: var(--texto-pequeno);
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVIDADE DE COMPONENTES
+   -------------------------------------------------------------------------- */
+@media (max-width: 680px) {
+  .pagina-cabecalho {
+    display: block;
+  }
+  .pagina-cabecalho > .btn {
+    margin-top: 14px;
+  }
+  .grade-campos {
+    grid-template-columns: 1fr;
+  }
+  .toasts {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+  .toast {
+    min-width: 0;
+  }
+  .tabela-filtro {
+    width: 100%;
+  }
+  .tabela-acoes {
+    margin-left: 0;
+  }
+}
