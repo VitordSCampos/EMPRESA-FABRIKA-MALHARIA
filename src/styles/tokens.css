@@ -1,0 +1,66 @@
+/* ==========================================================================
+   TOKENS DE DESIGN (ESQUELETO / WIREFRAME PARA ESTUDANTES)
+   ==========================================================================
+   Esta é a fonte única da verdade para cores, fontes e medidas do sistema.
+   
+   🎯 TAREFA DOS ESTUDANTES:
+   1. Abra o arquivo do Figma da Fabrika.
+   2. Inspecione os estilos globais (Design Tokens / Variables / Styles).
+   3. Substitua os valores neutros e provisórios abaixo pelas cores, fontes
+      e medidas exatas definidas no protótipo.
+   ========================================================================== */
+
+:root {
+  /* --- PALETA DE CORES PROVISÓRIA (WIREFRAME) ---
+     TODO (Estudantes): Inspecionar no Figma e substituir pelas cores reais do projeto */
+  --cor-fundo: #f8f9fa;             /* TODO: Cor de fundo principal da aplicação */
+  --cor-superficie: #ffffff;        /* TODO: Cor de fundo dos cartões e modais */
+  --cor-sidebar: #f1f3f5;           /* TODO: Cor de fundo da barra lateral (ex: dark ou clara) */
+  --cor-campo: #ffffff;             /* TODO: Cor de fundo dos inputs de formulário */
+  
+  --cor-texto: #212529;             /* TODO: Cor principal dos textos */
+  --cor-cinza-escuro: #495057;      /* TODO: Cor para textos secundários / legendas */
+  --cor-cinza: #6c757d;             /* TODO: Cor cinza intermediária */
+  --cor-suave: #adb5bd;             /* TODO: Cor para ícones secundários ou textos apagados */
+  
+  --cor-borda: #dee2e6;             /* TODO: Borda padrão de divisores e containers */
+  --cor-borda-cartao: #ced4da;      /* TODO: Borda de cartões e painéis */
+  --cor-linha: #e9ecef;             /* TODO: Borda de linhas de tabela e separadores */
+  --cor-hover: #f1f3f5;             /* TODO: Cor de fundo para estado hover de listas e tabelas */
+  
+  --cor-preto: #212529;             /* TODO: Cor primária / destaque (ex: botões primários) */
+  --cor-oliva: #495057;             /* TODO: Cor de destaque da marca (ex: briefing Fabrika) */
+  --cor-marinho: #212529;           /* TODO: Cor complementar da marca */
+
+  /* --- CORES DE STATUS (FEEDBACK VISUAL) ---
+     TODO (Estudantes): Consultar as cores de alerta, erro e sucesso no Figma */
+  --status-neutro-fundo: #e9ecef;
+  --status-neutro-texto: #495057;
+  --status-sucesso-fundo: #e6f4ea;
+  --status-sucesso-texto: #137333;
+  --status-alerta-fundo: #fef7e0;
+  --status-alerta-texto: #b06000;
+  --status-perigo-fundo: #fce8e6;
+  --status-perigo-texto: #c5221f;
+
+  /* --- TIPOGRAFIA ---
+     TODO (Estudantes): Importar as fontes oficiais (ex: Manrope, DM Sans) e ajustar medidas */
+  --fonte-corpo: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --fonte-titulo: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --texto-base: 16px;
+  --texto-pequeno: 14px;
+
+  /* --- MEDIDAS E GEOMETRIA ---
+     TODO (Estudantes): Ajustar arredondamentos (border-radius) e sombras (box-shadow) */
+  --raio-sm: 4px;                   /* Raio para inputs e pequenos badges */
+  --raio-md: 6px;                   /* Raio para botões e abas */
+  --raio-lg: 8px;                   /* Raio para cartões e modais */
+  
+  --sombra-cartao: none;            /* TODO: Aplicar sombra dos cartões definida no Figma */
+  --sombra-flutuante: 0 4px 16px rgba(0, 0, 0, 0.12); /* Sombra para modais e drawers */
+
+  --largura-sidebar: 260px;
+  --altura-topbar: 64px;
+  --alvo-minimo: 40px;              /* Acessibilidade: altura mínima de clique para botões/inputs */
+  --transicao: 0.15s ease-in-out;
+}
