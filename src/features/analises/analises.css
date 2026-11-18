@@ -1,0 +1,79 @@
+/* Estilos das telas Relatórios e Integrações (frente F8).
+   Todas as classes começam com "analise-" para não colidir com as dos outros módulos. */
+
+.analise-grade {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 1100px) {
+  .analise-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 600px) {
+  .analise-grade { grid-template-columns: 1fr; }
+}
+
+/* Cartão */
+.analise-cartao {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+}
+
+.analise-cartao-texto {
+  display: grid;
+  gap: 4px;
+}
+
+.analise-cartao-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cor-cinza);
+}
+
+.analise-cartao-titulo {
+  margin: 0;
+  font-size: var(--texto-pequeno);
+  font-weight: 500;
+  color: var(--cor-texto);
+}
+
+.analise-cartao-descricao {
+  margin: 0;
+  font-size: 13px;
+  color: var(--cor-cinza);
+}
+
+.analise-cartao .btn {
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Gráfico decorativo do topo do cartão */
+.analise-mini {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+  height: 76px;
+  padding: 12px 0;
+  border-radius: var(--raio-md);
+  background: #ece9e2;
+}
+
+.analise-mini span {
+  display: block;
+  width: 24px;
+  border-radius: 2px;
+  background: #6b7280;
+}
+
+.analise-mini--preto span { background: #111; }
+.analise-mini--bege span { background: #b8b3aa; }
+.analise-mini--elipses { align-items: center; }
+.analise-mini--elipses span { width: 24px; border-radius: 50%; }
