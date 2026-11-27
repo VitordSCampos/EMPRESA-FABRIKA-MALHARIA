@@ -1,6 +1,8 @@
 import { useState } from "react";
 import PedidosPage from "./features/comercial/PedidosPage";
 import ProdutosPage from "./features/engenharia/ProdutosPage";
+import OrdensDeProducaoPage from "./features/pcp/OrdensDeProducaoPage";
+import ApontamentoPage from "./features/producao/ApontamentoPage";
 
 type IconName = "grid" | "fabric" | "box" | "layers" | "spark" | "people" | "file" | "product" | "orders" | "check" | "settings" | "report" | "chevron" | "menu" | "search" | "bell";
 type NavItem = readonly [id: string, icon: IconName, label?: string];
@@ -55,8 +57,8 @@ function App() {
     const termo = buscaSistema.trim().toLocaleLowerCase("pt-BR");
     return termo && `${id} ${label ?? ""}`.toLocaleLowerCase("pt-BR").includes(termo);
   }).slice(0, 5);
-  const paginaComTelaPropria = activeNav === "Pedidos" || activeNav === "Produtos";
-  const areaAtual = activeNav === "Pedidos" ? "Comercial" : activeNav === "Produtos" ? "Engenharia" : activeNav === "Produção · Pedidos" ? "Produção" : "Fabrika";
+  const paginaComTelaPropria = activeNav === "Pedidos" || activeNav === "Produtos" || activeNav === "Produção · Pedidos" || activeNav === "Apontamento";
+  const areaAtual = activeNav === "Pedidos" ? "Comercial" : activeNav === "Produtos" ? "Engenharia" : activeNav === "Produção · Pedidos" || activeNav === "Apontamento" ? "Produção" : "Fabrika";
 
   return <div className="app-shell">
     <aside className={sidebarOpen ? "sidebar open" : "sidebar"} aria-label="Menu principal">
@@ -76,7 +78,7 @@ function App() {
         <div className="notification-wrap"><button className="notifications-button" type="button" onClick={() => setNotificacoesAbertas((aberta) => !aberta)} aria-expanded={notificacoesAbertas}><Icon name="bell"/> Notificações</button>{notificacoesAbertas && <div className="notifications-popover"><strong>Notificações</strong><p>Nenhuma notificação nova no momento.</p></div>}</div>
       </div>
     </header>
-      <section className={`page ${paginaComTelaPropria ? "page--module" : ""}`}>{!paginaComTelaPropria && <div className="page-heading"><div><p className="eyebrow">Módulo em estruturação</p><h1>{module.titulo}</h1><p>{module.descricao}</p></div><span className="status">ESQUELETO</span></div>}{activeNav === "Dashboard" ? <Dashboard onNavigate={navigate}/> : activeNav === "Pedidos" ? <PedidosPage/> : activeNav === "Produtos" ? <ProdutosPage/> : <ModuleGuide title={module.titulo} items={module.entregas}/>}</section>
+      <section className={`page ${paginaComTelaPropria ? "page--module" : ""}`}>{!paginaComTelaPropria && <div className="page-heading"><div><p className="eyebrow">Módulo em estruturação</p><h1>{module.titulo}</h1><p>{module.descricao}</p></div><span className="status">ESQUELETO</span></div>}{activeNav === "Dashboard" ? <Dashboard onNavigate={navigate}/> : activeNav === "Pedidos" ? <PedidosPage/> : activeNav === "Produtos" ? <ProdutosPage/> : activeNav === "Produção · Pedidos" ? <OrdensDeProducaoPage onNavigate={navigate}/> : activeNav === "Apontamento" ? <ApontamentoPage onNavigate={navigate}/> : <ModuleGuide title={module.titulo} items={module.entregas}/>}</section>
     </main>
   </div>;
 }
