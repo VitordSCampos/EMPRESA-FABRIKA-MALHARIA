@@ -1,5 +1,4 @@
-/**
- * Contratos e persistência temporária do módulo Comercial > Pedidos.
+/*
  * A persistência em localStorage serve apenas para a demonstração no navegador.
  * Na integração, substituir carregar/salvar por chamadas à API e manter os tipos.
  */
