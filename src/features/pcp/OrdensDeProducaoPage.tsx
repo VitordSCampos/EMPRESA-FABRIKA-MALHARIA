@@ -9,8 +9,11 @@ import {
   type Pedido,
 } from "@/features/comercial/pedidosStore"
 
+/** Contrato de apresentação da OP. Os campos de PCP serão preenchidos pela integração produtiva. */
 export interface OrdemDeProducao {
+  /** Identifica linha (pedido + item). */
   id: string
+  /** Número legível do pedido que originou a demanda. */
   numero?: string
   pedidoId?: string
   cliente?: string
@@ -70,6 +73,7 @@ export interface ApontamentoDaOrdem {
 }
 
 interface OrdensDeProducaoPageProps {
+  /** Permite que uma futura API forneça as OPs sem alterar a apresentação. */
   ordens?: readonly OrdemDeProducao[]
   onNavigate?: (id: string) => void
 }
@@ -82,6 +86,10 @@ function formatarNumero(valor?: number, casas = 0) {
   })
 }
 
+/**
+ * Cada item de um pedido comercial representa uma linha de demanda produtiva.
+ * Não são criados percentuais, etapas ou dados de estoque sem apontamento real.
+ */
 function converterPedidosEmOrdens(pedidos: readonly Pedido[]): OrdemDeProducao[] {
   return pedidos.flatMap((pedido) =>
     pedido.itens
@@ -241,52 +249,26 @@ function DetalheOrdemDrawer({
 
   return (
     <>
-      <button
-        className="op-drawer-backdrop"
-        type="button"
-        onClick={aoFechar}
-        aria-label="Fechar detalhes da ordem"
-      />
-
-      <aside
-        className="op-side-drawer"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="op-drawer-title"
-      >
+      <button className="op-drawer-backdrop" type="button" onClick={aoFechar} aria-label="Fechar detalhes da ordem" />
+      <aside className="op-side-drawer" role="dialog" aria-modal="true" aria-labelledby="op-drawer-title">
         <div className="op-drawer-scroll">
           <header className="op-drawer-header">
             <div>
               <small>ORDEM DE PRODUÇÃO · #{ordem.numero || ordem.id}</small>
-              <h2 id="op-drawer-title">
-                {ordem.produto || "Detalhes da ordem de produção"}
-              </h2>
+              <h2 id="op-drawer-title">{ordem.produto || "Detalhes da ordem de produção"}</h2>
             </div>
-            <button
-              className="op-drawer-close"
-              type="button"
-              onClick={aoFechar}
-              aria-label="Fechar"
-            >
-              ×
-            </button>
+            <button className="op-drawer-close" type="button" onClick={aoFechar} aria-label="Fechar">×</button>
           </header>
 
           <div className="op-order-summary">
             <div>
               <small>Quantidade</small>
-              <strong>
-                {ordem.quantidade === undefined
-                  ? "—"
-                  : `${formatarNumero(ordem.quantidade)} peças`}
-              </strong>
+              <strong>{ordem.quantidade === undefined ? "—" : `${formatarNumero(ordem.quantidade)} peças`}</strong>
             </div>
-
             <div>
               <small>Grade</small>
               <strong>{grade}</strong>
             </div>
-
             <div>
               <small>Resíduo previsto</small>
               <strong>{residuo}</strong>
@@ -297,7 +279,6 @@ function DetalheOrdemDrawer({
             <div className="op-section-heading">
               <h3>Necessidade de materiais</h3>
             </div>
-
             {ordem.materiais?.length ? (
               <div className="op-material-list">
                 {ordem.materiais.map((material) => (
@@ -313,12 +294,7 @@ function DetalheOrdemDrawer({
                           : ""}
                       </p>
                     </div>
-
-                    {material.situacao && (
-                      <span className="op-material-status">
-                        {material.situacao}
-                      </span>
-                    )}
+                    {material.situacao && <span className="op-material-status">{material.situacao}</span>}
                   </div>
                 ))}
               </div>
@@ -326,62 +302,28 @@ function DetalheOrdemDrawer({
           </section>
 
           {ordem.liberacao?.permitida === false && ordem.liberacao.motivo && (
-            <div className="op-release-warning" role="status">
-              {ordem.liberacao.motivo}
-            </div>
+            <div className="op-release-warning" role="status">{ordem.liberacao.motivo}</div>
           )}
 
           <section className="op-drawer-section">
             <div className="op-section-heading">
               <h3>Etapas de produção</h3>
             </div>
-
             <ol className="op-stage-timeline" aria-label="Roteiro de produção">
               {((ordem.etapas?.length
                 ? ordem.etapas
-                : [
-                    "Corte",
-                    "Malharia",
-                    "Costura",
-                    "Beneficiamento",
-                    "Acabamento",
-                    "Expedição",
-                  ].map((nome, indice) => ({
-                    id: `modelo-${indice}`,
-                    nome,
-                  }))
+                : ["Corte", "Malharia", "Costura", "Beneficiamento", "Acabamento", "Expedição"].map((nome, indice) => ({ id: `modelo-${indice}`, nome }))
               ) as EtapaDaOrdem[]).map((etapa) => {
                 const statusEtapa = (etapa.status || "").toLocaleLowerCase("pt-BR")
-                const concluida =
-                  Boolean(etapa.conclusao) || statusEtapa.includes("conclu")
-                const emAndamento =
-                  statusEtapa.includes("andamento") ||
-                  statusEtapa.includes("execução")
-
+                const concluida = Boolean(etapa.conclusao) || statusEtapa.includes("conclu")
+                const emAndamento = statusEtapa.includes("andamento") || statusEtapa.includes("execução")
                 return (
-                  <li
-                    className={
-                      concluida
-                        ? "is-complete"
-                        : emAndamento
-                          ? "is-current"
-                          : ""
-                    }
-                    key={etapa.id}
-                  >
-                    <span className="op-timeline-dot" aria-hidden="true">
-                      {concluida ? "✓" : ""}
-                    </span>
-
+                  <li className={concluida ? "is-complete" : emAndamento ? "is-current" : ""} key={etapa.id}>
+                    <span className="op-timeline-dot" aria-hidden="true">{concluida ? "✓" : ""}</span>
                     <span className="op-timeline-label">{etapa.nome}</span>
-
                     {(etapa.responsavel || etapa.previsao || etapa.conclusao) && (
                       <span className="op-timeline-detail">
-                        {[
-                          etapa.responsavel,
-                          etapa.previsao ? `Previsão: ${etapa.previsao}` : "",
-                          etapa.conclusao ? `Conclusão: ${etapa.conclusao}` : "",
-                        ].filter(Boolean).join(" · ")}
+                        {[etapa.responsavel, etapa.previsao ? `Previsão: ${etapa.previsao}` : "", etapa.conclusao ? `Conclusão: ${etapa.conclusao}` : ""].filter(Boolean).join(" · ")}
                       </span>
                     )}
                   </li>
@@ -389,6 +331,7 @@ function DetalheOrdemDrawer({
               })}
             </ol>
           </section>
+
         </div>
       </aside>
     </>
@@ -400,32 +343,23 @@ export default function OrdensDeProducaoPage({
   onNavigate,
 }: OrdensDeProducaoPageProps) {
   const [pedidos, setPedidos] = useState<Pedido[]>(() => carregarPedidos())
-  const [ordemSelecionada, setOrdemSelecionada] =
-    useState<OrdemDeProducao | null>(null)
+  const [ordemSelecionada, setOrdemSelecionada] = useState<OrdemDeProducao | null>(null)
 
   useEffect(() => {
     const atualizarPedidos = () => setPedidos(carregarPedidos())
-
     const sincronizarOutraAba = (evento: StorageEvent) => {
-      if (evento.key === PEDIDOS_STORAGE_KEY || evento.key === null) {
-        atualizarPedidos()
-      }
+      if (evento.key === PEDIDOS_STORAGE_KEY || evento.key === null) atualizarPedidos()
     }
 
     window.addEventListener(PEDIDOS_ATUALIZADOS_EVENT, atualizarPedidos)
     window.addEventListener("storage", sincronizarOutraAba)
-
     return () => {
       window.removeEventListener(PEDIDOS_ATUALIZADOS_EVENT, atualizarPedidos)
       window.removeEventListener("storage", sincronizarOutraAba)
     }
   }, [])
 
-  const ordensDosPedidos = useMemo(
-    () => converterPedidosEmOrdens(pedidos),
-    [pedidos]
-  )
-
+  const ordensDosPedidos = useMemo(() => converterPedidosEmOrdens(pedidos), [pedidos])
   const ordensParaExibir = ordens ?? ordensDosPedidos
 
   const navegarParaModulo = (id: "Apontamento" | "Máquinas") => {
@@ -433,12 +367,7 @@ export default function OrdensDeProducaoPage({
       onNavigate(id)
       return
     }
-
-    navegar(
-      id === "Apontamento"
-        ? "/producao/apontamento"
-        : "/producao/maquinas"
-    )
+    navegar(id === "Apontamento" ? "/producao/apontamento" : "/producao/maquinas")
   }
 
   return (
@@ -453,22 +382,13 @@ export default function OrdensDeProducaoPage({
 
       <div className="op-navigation-bar">
         <nav className="op-section-tabs" aria-label="Módulos de produção">
-          <button className="is-active" type="button" aria-current="page">
-            Ordens
-          </button>
-          <button type="button" onClick={() => navegarParaModulo("Apontamento")}>
-            Apontamento
-          </button>
-          <button type="button" onClick={() => navegarParaModulo("Máquinas")}>
-            Máquinas
-          </button>
+          <button className="is-active" type="button" aria-current="page">Ordens</button>
+          <button type="button" onClick={() => navegarParaModulo("Apontamento")}>Apontamento</button>
+          <button type="button" onClick={() => navegarParaModulo("Máquinas")}>Máquinas</button>
         </nav>
       </div>
 
-      <TabelaOrdens
-        ordens={ordensParaExibir}
-        aoAbrir={setOrdemSelecionada}
-      />
+      <TabelaOrdens ordens={ordensParaExibir} aoAbrir={setOrdemSelecionada} />
 
       {ordemSelecionada && (
         <DetalheOrdemDrawer
