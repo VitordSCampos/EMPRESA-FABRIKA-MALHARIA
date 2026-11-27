@@ -5,6 +5,7 @@
  */
 
 export const PEDIDOS_STORAGE_KEY = "fabrika.pedidos.v1";
+export const PEDIDOS_ATUALIZADOS_EVENT = "fabrika:pedidos-atualizados";
 export const FICHAS_TECNICAS_STORAGE_KEY = "fabrika.fichas-tecnicas.v1";
 
 export const STATUS_PEDIDO = ["Em análise", "Em produção", "Pronto", "Entregue"] as const;
@@ -61,6 +62,7 @@ export function salvarPedidos(pedidos: Pedido[]): void {
   if (typeof window === "undefined") return;
   try {
     window.localStorage.setItem(PEDIDOS_STORAGE_KEY, JSON.stringify(pedidos));
+    window.dispatchEvent(new Event(PEDIDOS_ATUALIZADOS_EVENT));
   } catch {
     // A interface continua utilizável em memória; a camada de API substituirá este fallback.
   }
