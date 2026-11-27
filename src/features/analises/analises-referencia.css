@@ -1,0 +1,20 @@
+/* Telas do HTML de referência, isoladas dos estilos dos outros módulos. */
+.ref-analises { color: #0f172a; }
+.ref-analises-heading > p { margin: 0 0 8px; color: #6b7280; font-size: 14px; font-weight: 700; letter-spacing: 3px; }
+.ref-analises-heading h1 { margin: 0 0 10px; color: #0f172a; font: 600 clamp(34px, 4vw, 58px)/1.15 Inter, "Segoe UI", sans-serif; }
+.ref-analises-heading > span { color: #5f6575; font-size: 16px; }
+.ref-analises-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+.ref-analises-card { display: flex; flex-direction: column; min-width: 0; padding: 16px; border: 1px solid #dad5cf; border-radius: 14px; background: #fff; }
+.ref-analises-thumb { display: flex; align-items: center; justify-content: center; height: 115px; border-radius: 8px; background: #f1eeea; }
+.ref-analises-chart { display: flex; align-items: flex-end; gap: 10px; }
+.ref-analises-chart span { display: block; width: 32px; background: #6d7585; }
+.ref-analises-thumb--elipses .ref-analises-chart span { border-radius: 50%; }
+.ref-analises-thumb--preto .ref-analises-chart span { background: #000; }
+.ref-analises-thumb--bege .ref-analises-chart span { background: #b0aba3; }
+.ref-analises-tag { margin: 18px 0 0; color: #6b7280; font-size: 13px; font-weight: 700; letter-spacing: 1.4px; }
+.ref-analises-card h2 { margin: 12px 0 0; color: #111827; font-size: 17px; font-weight: 500; }
+.ref-analises-description { min-height: 40px; margin: 6px 0 0; color: #667085; font-size: 15px; }
+.ref-analises-card button { width: 100%; min-height: 44px; margin-top: auto; border: 1px solid #c9c3bd; border-radius: 8px; background: #fff; color: #5f6575; font-weight: 600; cursor: not-allowed; }
+.ref-analises-note { margin: 18px 0 0; color: #667085; font-size: 13px; }
+@media (max-width: 1400px) { .ref-analises-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 540px) { .ref-analises-grid { grid-template-columns: 1fr; } }

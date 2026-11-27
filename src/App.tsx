@@ -1,13 +1,14 @@
 import { useState } from "react";
 import PedidosPage from "./features/comercial/PedidosPage";
 import ProdutosPage from "./features/engenharia/ProdutosPage";
+import { AnalisesReferencia } from "./features/analises/AnalisesReferencia";
 
 type IconName = "grid" | "fabric" | "box" | "layers" | "spark" | "people" | "file" | "product" | "orders" | "check" | "settings" | "report" | "chevron" | "menu" | "search" | "bell";
 type NavItem = readonly [id: string, icon: IconName, label?: string];
 
 const groups: { label: string; items: NavItem[] }[] = [
   { label: "Dashboard", items: [["Dashboard", "grid"]] },
-  { label: "Cadastros", items: [["Tecidos", "fabric"], ["Aviamentos", "box"], ["Modelagem", "layers"], ["Beneficiamentos", "spark"], ["Fornecedores", "people"]] },
+  { label: "Cadastros", items: [["Tecidos", "fabric"], ["Aviamentos", "box"], ["Modelagem", "layers"], ["Beneficiamentos", "spark"], ["Fornecedores", "people"], ["Clientes", "people"]] },
   { label: "Estoque", items: [["Estoque · Tecidos", "fabric", "Tecidos"], ["Estoque · Aviamentos", "box", "Aviamentos"]] },
   { label: "Engenharia de produção", items: [["Ficha técnica", "file"]] },
   { label: "Produtos", items: [["Produtos", "product"]] },
@@ -30,6 +31,7 @@ const tarefas: Record<string, { titulo: string; descricao: string; entregas: str
   Modelagem: { titulo: "Modelagem", descricao: "Estrutura de modelos, tamanhos e medidas.", entregas: ["Tabela de medidas", "Tamanhos e grades", "Anexos técnicos"] },
   Beneficiamentos: { titulo: "Beneficiamentos", descricao: "Etapas terceirizadas ou internas de acabamento.", entregas: ["Tipo de processo", "Fornecedor responsável", "Custo e prazo"] },
   Fornecedores: { titulo: "Fornecedores", descricao: "Parceiros de compra e beneficiamento.", entregas: ["Dados cadastrais", "Condições comerciais", "Avaliação e histórico"] },
+  Clientes: { titulo: "Clientes", descricao: "Base comercial de clientes e contatos.", entregas: ["Dados cadastrais", "Endereços e contatos", "Histórico de pedidos"] },
   "Estoque · Tecidos": { titulo: "Estoque de tecidos", descricao: "Saldo, lote e movimentações de matéria-prima.", entregas: ["Entradas, saídas e reservas", "Lotes e localização", "Alerta de estoque mínimo"] },
   "Estoque · Aviamentos": { titulo: "Estoque de aviamentos", descricao: "Saldo e reposição dos itens complementares.", entregas: ["Entradas e baixas", "Estoque mínimo", "Inventário"] },
   Sustentabilidade: { titulo: "Sustentabilidade", descricao: "Acompanhamento dos resíduos têxteis e seus destinos.", entregas: ["Registro de resíduo em kg", "Destino e comprovantes", "Indicadores de reaproveitamento"] },
@@ -55,8 +57,9 @@ function App() {
     const termo = buscaSistema.trim().toLocaleLowerCase("pt-BR");
     return termo && `${id} ${label ?? ""}`.toLocaleLowerCase("pt-BR").includes(termo);
   }).slice(0, 5);
-  const paginaComTelaPropria = activeNav === "Pedidos" || activeNav === "Produtos";
-  const areaAtual = activeNav === "Pedidos" ? "Comercial" : activeNav === "Produtos" ? "Engenharia" : activeNav === "Produção · Pedidos" ? "Produção" : "Fabrika";
+  const paginaDeAnalise = activeNav === "Relatórios" || activeNav === "Integrações";
+  const paginaComTelaPropria = activeNav === "Pedidos" || activeNav === "Produtos" || paginaDeAnalise;
+  const areaAtual = activeNav === "Pedidos" ? "Comercial" : activeNav === "Produtos" ? "Engenharia" : activeNav === "Produção · Pedidos" ? "Produção" : paginaDeAnalise ? "Análises" : "Fabrika";
 
   return <div className="app-shell">
     <aside className={sidebarOpen ? "sidebar open" : "sidebar"} aria-label="Menu principal">
@@ -76,7 +79,7 @@ function App() {
         <div className="notification-wrap"><button className="notifications-button" type="button" onClick={() => setNotificacoesAbertas((aberta) => !aberta)} aria-expanded={notificacoesAbertas}><Icon name="bell"/> Notificações</button>{notificacoesAbertas && <div className="notifications-popover"><strong>Notificações</strong><p>Nenhuma notificação nova no momento.</p></div>}</div>
       </div>
     </header>
-      <section className={`page ${paginaComTelaPropria ? "page--module" : ""}`}>{!paginaComTelaPropria && <div className="page-heading"><div><p className="eyebrow">Módulo em estruturação</p><h1>{module.titulo}</h1><p>{module.descricao}</p></div><span className="status">ESQUELETO</span></div>}{activeNav === "Dashboard" ? <Dashboard onNavigate={navigate}/> : activeNav === "Pedidos" ? <PedidosPage/> : activeNav === "Produtos" ? <ProdutosPage/> : <ModuleGuide title={module.titulo} items={module.entregas}/>}</section>
+      <section className={`page ${paginaComTelaPropria ? "page--module" : ""}`}>{!paginaComTelaPropria && <div className="page-heading"><div><p className="eyebrow">Módulo em estruturação</p><h1>{module.titulo}</h1><p>{module.descricao}</p></div><span className="status">ESQUELETO</span></div>}{activeNav === "Dashboard" ? <Dashboard onNavigate={navigate}/> : activeNav === "Pedidos" ? <PedidosPage/> : activeNav === "Produtos" ? <ProdutosPage/> : paginaDeAnalise ? <AnalisesReferencia tipo={activeNav === "Relatórios" ? "relatorios" : "integracoes"}/> : <ModuleGuide title={module.titulo} items={module.entregas}/>}</section>
     </main>
   </div>;
 }
